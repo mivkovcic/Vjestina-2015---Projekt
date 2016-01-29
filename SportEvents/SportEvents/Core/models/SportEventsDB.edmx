@@ -1,0 +1,484 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SportEventsDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Događaj">
+          <Key>
+            <PropertyRef Name="pk_događaj" />
+          </Key>
+          <Property Name="pk_događaj" Type="int" Nullable="false" />
+          <Property Name="fk_sport" Type="int" Nullable="false" />
+          <Property Name="fk_mjesto" Type="int" Nullable="false" />
+          <Property Name="datum" Type="datetime" Nullable="false" />
+          <Property Name="cijena" Type="int" />
+          <Property Name="posjetitelji" Type="int" />
+        </EntityType>
+        <EntityType Name="DogađajNatjecatelj">
+          <Key>
+            <PropertyRef Name="pk_događaj_natjecatelj" />
+          </Key>
+          <Property Name="pk_događaj_natjecatelj" Type="int" Nullable="false" />
+          <Property Name="fk_događaj" Type="int" Nullable="false" />
+          <Property Name="fk_natjecatelj" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Grad">
+          <Key>
+            <PropertyRef Name="pk_grad" />
+          </Key>
+          <Property Name="pk_grad" Type="int" Nullable="false" />
+          <Property Name="naziv" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="pbr" Type="nchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="Mjesto">
+          <Key>
+            <PropertyRef Name="pk_mjesto" />
+          </Key>
+          <Property Name="pk_mjesto" Type="int" Nullable="false" />
+          <Property Name="fk_grad" Type="int" Nullable="false" />
+          <Property Name="fk_tip" Type="int" />
+          <Property Name="naziv" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="kapacitet" Type="smallint" />
+          <Property Name="adresa" Type="nchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Natjecatelj">
+          <Key>
+            <PropertyRef Name="pk_natjecatelj" />
+          </Key>
+          <Property Name="pk_natjecatelj" Type="int" Nullable="false" />
+          <Property Name="naziv" Type="nchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sport">
+          <Key>
+            <PropertyRef Name="pk_sport" />
+          </Key>
+          <Property Name="pk_sport" Type="int" Nullable="false" />
+          <Property Name="naziv" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="slika" Type="image" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tip">
+          <Key>
+            <PropertyRef Name="pk_tip" />
+          </Key>
+          <Property Name="pk_tip" Type="int" Nullable="false" />
+          <Property Name="naziv" Type="nchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Događaj_Mjesto">
+          <End Role="Mjesto" Type="Self.Mjesto" Multiplicity="1" />
+          <End Role="Događaj" Type="Self.Događaj" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mjesto">
+              <PropertyRef Name="pk_mjesto" />
+            </Principal>
+            <Dependent Role="Događaj">
+              <PropertyRef Name="fk_mjesto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Događaj_Sport">
+          <End Role="Sport" Type="Self.Sport" Multiplicity="1" />
+          <End Role="Događaj" Type="Self.Događaj" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sport">
+              <PropertyRef Name="pk_sport" />
+            </Principal>
+            <Dependent Role="Događaj">
+              <PropertyRef Name="fk_sport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DogađajNatjecatelj_Događaj">
+          <End Role="Događaj" Type="Self.Događaj" Multiplicity="1" />
+          <End Role="DogađajNatjecatelj" Type="Self.DogađajNatjecatelj" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Događaj">
+              <PropertyRef Name="pk_događaj" />
+            </Principal>
+            <Dependent Role="DogađajNatjecatelj">
+              <PropertyRef Name="fk_događaj" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DogađajNatjecatelj_Natjecatelj">
+          <End Role="Natjecatelj" Type="Self.Natjecatelj" Multiplicity="1" />
+          <End Role="DogađajNatjecatelj" Type="Self.DogađajNatjecatelj" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Natjecatelj">
+              <PropertyRef Name="pk_natjecatelj" />
+            </Principal>
+            <Dependent Role="DogađajNatjecatelj">
+              <PropertyRef Name="fk_natjecatelj" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mjesto_Grad">
+          <End Role="Grad" Type="Self.Grad" Multiplicity="1" />
+          <End Role="Mjesto" Type="Self.Mjesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grad">
+              <PropertyRef Name="pk_grad" />
+            </Principal>
+            <Dependent Role="Mjesto">
+              <PropertyRef Name="fk_grad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mjesto_Tip">
+          <End Role="Tip" Type="Self.Tip" Multiplicity="0..1" />
+          <End Role="Mjesto" Type="Self.Mjesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tip">
+              <PropertyRef Name="pk_tip" />
+            </Principal>
+            <Dependent Role="Mjesto">
+              <PropertyRef Name="fk_tip" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SportEventsDBModelStoreContainer">
+          <EntitySet Name="Događaj" EntityType="Self.Događaj" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DogađajNatjecatelj" EntityType="Self.DogađajNatjecatelj" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Grad" EntityType="Self.Grad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mjesto" EntityType="Self.Mjesto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Natjecatelj" EntityType="Self.Natjecatelj" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sport" EntityType="Self.Sport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tip" EntityType="Self.Tip" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Događaj_Mjesto" Association="Self.FK_Događaj_Mjesto">
+            <End Role="Mjesto" EntitySet="Mjesto" />
+            <End Role="Događaj" EntitySet="Događaj" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Događaj_Sport" Association="Self.FK_Događaj_Sport">
+            <End Role="Sport" EntitySet="Sport" />
+            <End Role="Događaj" EntitySet="Događaj" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DogađajNatjecatelj_Događaj" Association="Self.FK_DogađajNatjecatelj_Događaj">
+            <End Role="Događaj" EntitySet="Događaj" />
+            <End Role="DogađajNatjecatelj" EntitySet="DogađajNatjecatelj" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DogađajNatjecatelj_Natjecatelj" Association="Self.FK_DogađajNatjecatelj_Natjecatelj">
+            <End Role="Natjecatelj" EntitySet="Natjecatelj" />
+            <End Role="DogađajNatjecatelj" EntitySet="DogađajNatjecatelj" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mjesto_Grad" Association="Self.FK_Mjesto_Grad">
+            <End Role="Grad" EntitySet="Grad" />
+            <End Role="Mjesto" EntitySet="Mjesto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mjesto_Tip" Association="Self.FK_Mjesto_Tip">
+            <End Role="Tip" EntitySet="Tip" />
+            <End Role="Mjesto" EntitySet="Mjesto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SportEventsDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Događaj">
+          <Key>
+            <PropertyRef Name="pk_događaj" />
+          </Key>
+          <Property Name="pk_događaj" Type="Int32" Nullable="false" />
+          <Property Name="fk_sport" Type="Int32" Nullable="false" />
+          <Property Name="fk_mjesto" Type="Int32" Nullable="false" />
+          <Property Name="datum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="cijena" Type="Int32" />
+          <Property Name="posjetitelji" Type="Int32" />
+          <NavigationProperty Name="Mjesto" Relationship="Self.FK_Događaj_Mjesto" FromRole="Događaj" ToRole="Mjesto" />
+          <NavigationProperty Name="Sport" Relationship="Self.FK_Događaj_Sport" FromRole="Događaj" ToRole="Sport" />
+          <NavigationProperty Name="DogađajNatjecatelj" Relationship="Self.FK_DogađajNatjecatelj_Događaj" FromRole="Događaj" ToRole="DogađajNatjecatelj" />
+        </EntityType>
+        <EntityType Name="DogađajNatjecatelj">
+          <Key>
+            <PropertyRef Name="pk_događaj_natjecatelj" />
+          </Key>
+          <Property Name="pk_događaj_natjecatelj" Type="Int32" Nullable="false" />
+          <Property Name="fk_događaj" Type="Int32" Nullable="false" />
+          <Property Name="fk_natjecatelj" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Događaj" Relationship="Self.FK_DogađajNatjecatelj_Događaj" FromRole="DogađajNatjecatelj" ToRole="Događaj" />
+          <NavigationProperty Name="Natjecatelj" Relationship="Self.FK_DogađajNatjecatelj_Natjecatelj" FromRole="DogađajNatjecatelj" ToRole="Natjecatelj" />
+        </EntityType>
+        <EntityType Name="Grad">
+          <Key>
+            <PropertyRef Name="pk_grad" />
+          </Key>
+          <Property Name="pk_grad" Type="Int32" Nullable="false" />
+          <Property Name="naziv" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="pbr" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Mjestoes" Relationship="Self.FK_Mjesto_Grad" FromRole="Grad" ToRole="Mjesto" />
+        </EntityType>
+        <EntityType Name="Mjesto">
+          <Key>
+            <PropertyRef Name="pk_mjesto" />
+          </Key>
+          <Property Name="pk_mjesto" Type="Int32" Nullable="false" />
+          <Property Name="fk_grad" Type="Int32" Nullable="false" />
+          <Property Name="fk_tip" Type="Int32" />
+          <Property Name="naziv" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="kapacitet" Type="Int16" />
+          <Property Name="adresa" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Događaj" Relationship="Self.FK_Događaj_Mjesto" FromRole="Mjesto" ToRole="Događaj" />
+          <NavigationProperty Name="Grad" Relationship="Self.FK_Mjesto_Grad" FromRole="Mjesto" ToRole="Grad" />
+          <NavigationProperty Name="Tip" Relationship="Self.FK_Mjesto_Tip" FromRole="Mjesto" ToRole="Tip" />
+        </EntityType>
+        <EntityType Name="Natjecatelj">
+          <Key>
+            <PropertyRef Name="pk_natjecatelj" />
+          </Key>
+          <Property Name="pk_natjecatelj" Type="Int32" Nullable="false" />
+          <Property Name="naziv" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="DogađajNatjecatelj" Relationship="Self.FK_DogađajNatjecatelj_Natjecatelj" FromRole="Natjecatelj" ToRole="DogađajNatjecatelj" />
+        </EntityType>
+        <EntityType Name="Sport">
+          <Key>
+            <PropertyRef Name="pk_sport" />
+          </Key>
+          <Property Name="pk_sport" Type="Int32" Nullable="false" />
+          <Property Name="naziv" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="slika" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Događaj" Relationship="Self.FK_Događaj_Sport" FromRole="Sport" ToRole="Događaj" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tip">
+          <Key>
+            <PropertyRef Name="pk_tip" />
+          </Key>
+          <Property Name="pk_tip" Type="Int32" Nullable="false" />
+          <Property Name="naziv" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Mjestoes" Relationship="Self.FK_Mjesto_Tip" FromRole="Tip" ToRole="Mjesto" />
+        </EntityType>
+        <Association Name="FK_Događaj_Mjesto">
+          <End Role="Mjesto" Type="Self.Mjesto" Multiplicity="1" />
+          <End Role="Događaj" Type="Self.Događaj" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mjesto">
+              <PropertyRef Name="pk_mjesto" />
+            </Principal>
+            <Dependent Role="Događaj">
+              <PropertyRef Name="fk_mjesto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Događaj_Sport">
+          <End Role="Sport" Type="Self.Sport" Multiplicity="1" />
+          <End Role="Događaj" Type="Self.Događaj" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sport">
+              <PropertyRef Name="pk_sport" />
+            </Principal>
+            <Dependent Role="Događaj">
+              <PropertyRef Name="fk_sport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DogađajNatjecatelj_Događaj">
+          <End Role="Događaj" Type="Self.Događaj" Multiplicity="1" />
+          <End Role="DogađajNatjecatelj" Type="Self.DogađajNatjecatelj" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Događaj">
+              <PropertyRef Name="pk_događaj" />
+            </Principal>
+            <Dependent Role="DogađajNatjecatelj">
+              <PropertyRef Name="fk_događaj" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DogađajNatjecatelj_Natjecatelj">
+          <End Role="Natjecatelj" Type="Self.Natjecatelj" Multiplicity="1" />
+          <End Role="DogađajNatjecatelj" Type="Self.DogađajNatjecatelj" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Natjecatelj">
+              <PropertyRef Name="pk_natjecatelj" />
+            </Principal>
+            <Dependent Role="DogađajNatjecatelj">
+              <PropertyRef Name="fk_natjecatelj" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mjesto_Grad">
+          <End Role="Grad" Type="Self.Grad" Multiplicity="1" />
+          <End Role="Mjesto" Type="Self.Mjesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Grad">
+              <PropertyRef Name="pk_grad" />
+            </Principal>
+            <Dependent Role="Mjesto">
+              <PropertyRef Name="fk_grad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Mjesto_Tip">
+          <End Role="Tip" Type="Self.Tip" Multiplicity="0..1" />
+          <End Role="Mjesto" Type="Self.Mjesto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tip">
+              <PropertyRef Name="pk_tip" />
+            </Principal>
+            <Dependent Role="Mjesto">
+              <PropertyRef Name="fk_tip" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SportEventsDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Događaj" EntityType="Self.Događaj" />
+          <EntitySet Name="DogađajNatjecatelj" EntityType="Self.DogađajNatjecatelj" />
+          <EntitySet Name="Grads" EntityType="Self.Grad" />
+          <EntitySet Name="Mjestoes" EntityType="Self.Mjesto" />
+          <EntitySet Name="Natjecateljs" EntityType="Self.Natjecatelj" />
+          <EntitySet Name="Sports" EntityType="Self.Sport" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Tips" EntityType="Self.Tip" />
+          <AssociationSet Name="FK_Događaj_Mjesto" Association="Self.FK_Događaj_Mjesto">
+            <End Role="Mjesto" EntitySet="Mjestoes" />
+            <End Role="Događaj" EntitySet="Događaj" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Događaj_Sport" Association="Self.FK_Događaj_Sport">
+            <End Role="Sport" EntitySet="Sports" />
+            <End Role="Događaj" EntitySet="Događaj" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DogađajNatjecatelj_Događaj" Association="Self.FK_DogađajNatjecatelj_Događaj">
+            <End Role="Događaj" EntitySet="Događaj" />
+            <End Role="DogađajNatjecatelj" EntitySet="DogađajNatjecatelj" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DogađajNatjecatelj_Natjecatelj" Association="Self.FK_DogađajNatjecatelj_Natjecatelj">
+            <End Role="Natjecatelj" EntitySet="Natjecateljs" />
+            <End Role="DogađajNatjecatelj" EntitySet="DogađajNatjecatelj" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mjesto_Grad" Association="Self.FK_Mjesto_Grad">
+            <End Role="Grad" EntitySet="Grads" />
+            <End Role="Mjesto" EntitySet="Mjestoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Mjesto_Tip" Association="Self.FK_Mjesto_Tip">
+            <End Role="Tip" EntitySet="Tips" />
+            <End Role="Mjesto" EntitySet="Mjestoes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SportEventsDBModelStoreContainer" CdmEntityContainer="SportEventsDBEntities">
+          <EntitySetMapping Name="Događaj">
+            <EntityTypeMapping TypeName="SportEventsDBModel.Događaj">
+              <MappingFragment StoreEntitySet="Događaj">
+                <ScalarProperty Name="pk_događaj" ColumnName="pk_događaj" />
+                <ScalarProperty Name="fk_sport" ColumnName="fk_sport" />
+                <ScalarProperty Name="fk_mjesto" ColumnName="fk_mjesto" />
+                <ScalarProperty Name="datum" ColumnName="datum" />
+                <ScalarProperty Name="cijena" ColumnName="cijena" />
+                <ScalarProperty Name="posjetitelji" ColumnName="posjetitelji" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DogađajNatjecatelj">
+            <EntityTypeMapping TypeName="SportEventsDBModel.DogađajNatjecatelj">
+              <MappingFragment StoreEntitySet="DogađajNatjecatelj">
+                <ScalarProperty Name="pk_događaj_natjecatelj" ColumnName="pk_događaj_natjecatelj" />
+                <ScalarProperty Name="fk_događaj" ColumnName="fk_događaj" />
+                <ScalarProperty Name="fk_natjecatelj" ColumnName="fk_natjecatelj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Grads">
+            <EntityTypeMapping TypeName="SportEventsDBModel.Grad">
+              <MappingFragment StoreEntitySet="Grad">
+                <ScalarProperty Name="pk_grad" ColumnName="pk_grad" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="pbr" ColumnName="pbr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mjestoes">
+            <EntityTypeMapping TypeName="SportEventsDBModel.Mjesto">
+              <MappingFragment StoreEntitySet="Mjesto">
+                <ScalarProperty Name="pk_mjesto" ColumnName="pk_mjesto" />
+                <ScalarProperty Name="fk_grad" ColumnName="fk_grad" />
+                <ScalarProperty Name="fk_tip" ColumnName="fk_tip" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="kapacitet" ColumnName="kapacitet" />
+                <ScalarProperty Name="adresa" ColumnName="adresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Natjecateljs">
+            <EntityTypeMapping TypeName="SportEventsDBModel.Natjecatelj">
+              <MappingFragment StoreEntitySet="Natjecatelj">
+                <ScalarProperty Name="pk_natjecatelj" ColumnName="pk_natjecatelj" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sports">
+            <EntityTypeMapping TypeName="SportEventsDBModel.Sport">
+              <MappingFragment StoreEntitySet="Sport">
+                <ScalarProperty Name="pk_sport" ColumnName="pk_sport" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="slika" ColumnName="slika" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SportEventsDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tips">
+            <EntityTypeMapping TypeName="SportEventsDBModel.Tip">
+              <MappingFragment StoreEntitySet="Tip">
+                <ScalarProperty Name="pk_tip" ColumnName="pk_tip" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <style>
+        /* Remove the navbar's default rounded borders and increase the bottom margin */
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+
+        /* Remove the jumbotron's default bottom margin */
+        .jumbotron {
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+
+        /* Add a gray background color and some padding to the footer */
+        footer {
+            background-color: #f2f2f2;
+            padding: 15px;
+        }
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            background-color: #f1f1f1;
+            height: 100%;
+            padding-left: 25px;
+        }
+
+        .row.content {height: auto;} 
+    </style>
+
+</head>
+<body style="padding-top:0px; margin-top:0px">
+    <div class="jumbotron">
+        <div class="container text-center">
+            <h1>Sports Events</h1>
+            <p>Many different sporting events all over the Croatia</p>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#" style="font-family:Georgia; font-size:250%; padding-left:40%">SEvent</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav" style="padding-left:5%">
+                    <li>@Html.ActionLink("Naslovna", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Događaji", "Events", "Home")</li>
+                    <li>@Html.ActionLink("Sportovi", "Sports", new { pk_sport = 1 } )</li>
+                    <li>@Html.ActionLink("Lokacije", "Locations", new { pk_grad = 1 })</li>
+           
+        
+                    <li>@Html.ActionLink("Filter", "Filter", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+
+    <footer class="container-fluid text-center">
+        <h3 style="padding:1%">Login</h3>
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+            </div>
+            <button type="button" class="btn btn-danger">Sign Up</button>
+        </form>
+    </footer>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

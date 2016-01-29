@@ -1,0 +1,29 @@
+﻿@model SportEvents.Models.HomeSportsViewModel
+
+@{
+    ViewBag.Title = "Sports";
+}
+
+
+<div class="row content">
+    <div class="col-sm-3 sidenav">
+        <h4 style="padding-top: 15px">Popis sportova</h4>
+        <ul class="nav nav-pills nav-stacked">
+            @foreach (var item in Model.Sportovi)
+            {
+                <li class="active">
+                    @Html.ActionLink(item.naziv, "Sports", new { pk_sport = item.pk_sport })
+                </li>
+            }            
+        </ul><br>        
+    </div>
+
+    <div class="col-sm-9">
+        <br><br>        
+        @{
+            Html.RenderPartial("Sport", Model);
+        }
+    </div>
+</div>
+
+
