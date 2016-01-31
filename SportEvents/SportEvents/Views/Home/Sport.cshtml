@@ -26,9 +26,9 @@
                                     @item.Mjesto.Grad.naziv, @item.Mjesto.adresa
                                 </th>
                                 <th width="25%" style="padding-bottom:3%; text-align:center">
-                                    @item.datum
+                                    @item.datum.ToShortDateString()  @item.datum.ToShortTimeString()
                                 </th>
-                                <th width="20%" style="padding-bottom:3%; text-align:center">Broj posjetitelja: </th>
+                                <th width="20%" style="padding-bottom:3%; text-align:center">Broj posjetitelja: @item.broj_posjetitelja </th>
                                 <!--<th width="20%" style="padding-bottom:3%; text-align:center"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Rezerviraj</a></th>-->
                             </tr>
                         </thead>

@@ -47,9 +47,9 @@
                                                 @d.Mjesto.adresa
                                             </th>
                                             <th width="25%" style="padding-bottom:3%; text-align:center">
-                                                @d.datum
+                                                @d.datum.ToShortDateString()  @d.datum.ToShortTimeString()
                                             </th>
-                                            <th width="20%" style="padding-bottom:3%; text-align:center">Broj posjetitelja: </th>
+                                            <th width="20%" style="padding-bottom:3%; text-align:center">Broj posjetitelja: @d.broj_posjetitelja</th>
                                             <!--<th width="20%" style="padding-bottom:3%; text-align:center"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Rezerviraj</a></th>-->
                                         </tr>
                                     </thead>
