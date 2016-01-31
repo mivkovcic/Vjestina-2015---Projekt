@@ -7,29 +7,29 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SportEvents.Core.models
+namespace SportEvents.Core
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Događaj
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class Korisnik
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Događaj()
+        public Korisnik()
         {
-            this.DogađajNatjecatelj = new HashSet<DogađajNatjecatelj>();
+            this.Rezervacija = new HashSet<Rezervacija>();
         }
+
+        [Key]
+        public int pk_korisnik { get; set; }
+        public string korisničko_ime { get; set; }
+        public string lozinka { get; set; }
+        public string ime { get; set; }
+        public string prezime { get; set; }
+        public string email { get; set; }
     
-        public int pk_događaj { get; set; }
-        public int fk_sport { get; set; }
-        public int fk_mjesto { get; set; }
-        public System.DateTime datum { get; set; }
-        public Nullable<int> cijena { get; set; }
-        public Nullable<int> posjetitelji { get; set; }
-    
-        public virtual Mjesto Mjesto { get; set; }
-        public virtual Sport Sport { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DogađajNatjecatelj> DogađajNatjecatelj { get; set; }
+        public virtual ICollection<Rezervacija> Rezervacija { get; set; }
     }
 }

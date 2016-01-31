@@ -1,4 +1,4 @@
-﻿using SportEvents.Core.models;
+﻿using SportEvents.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;

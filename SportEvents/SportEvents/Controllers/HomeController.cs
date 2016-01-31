@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SportEvents.Core;
-using SportEvents.Core.models;
 using SportEvents.Models;
 
 namespace SportEvents.Controllers
@@ -21,7 +20,7 @@ namespace SportEvents.Controllers
 
         public ActionResult Index()
         {
-            using(var db = new SportEventsDBEntities())
+            using(var db = new SportEventDBEntities())
             {
                 var model = new HomeIndexViewModel
                 {                 
@@ -37,7 +36,7 @@ namespace SportEvents.Controllers
 
         public ActionResult Events()
         {
-            using (var db = new SportEventsDBEntities())
+            using (var db = new SportEventDBEntities())
             {
                 var model = new HomeEventsViewModel
                 {
@@ -53,7 +52,7 @@ namespace SportEvents.Controllers
 
         public ActionResult Sports(int pk_sport)
         {
-            using (var db = new SportEventsDBEntities())
+            using (var db = new SportEventDBEntities())
             {
                 var model = new HomeSportsViewModel
                 {
@@ -70,7 +69,7 @@ namespace SportEvents.Controllers
 
         public ActionResult Locations(int pk_grad)
         {
-            using (var db = new SportEventsDBEntities())
+            using (var db = new SportEventDBEntities())
             {
                 var model = new HomeLocationsViewModel
                 {
@@ -87,7 +86,7 @@ namespace SportEvents.Controllers
 
         public ActionResult Event(int pk_događaj)
         {
-            using (var db = new SportEventsDBEntities())
+            using (var db = new SportEventDBEntities())
             {
                 var model = new HomeEventViewModel
                 {

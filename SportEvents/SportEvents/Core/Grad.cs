@@ -7,23 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SportEvents.Core.models
+namespace SportEvents.Core
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Natjecatelj
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class Grad
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Natjecatelj()
+        public Grad()
         {
-            this.DogađajNatjecatelj = new HashSet<DogađajNatjecatelj>();
+            this.Mjesto = new HashSet<Mjesto>();
         }
-    
-        public int pk_natjecatelj { get; set; }
+
+        [Key]
+        public int pk_grad { get; set; }
         public string naziv { get; set; }
+        public string pbr { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DogađajNatjecatelj> DogađajNatjecatelj { get; set; }
+        public virtual ICollection<Mjesto> Mjesto { get; set; }
     }
 }

@@ -7,18 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SportEvents.Core.models
+namespace SportEvents.Core
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class DogađajNatjecatelj
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class Rezervacija
     {
-        public int pk_događaj_natjecatelj { get; set; }
+        [Key]
+        public int pk_rezervacija { get; set; }
+        public int fk_korisnik { get; set; }
         public int fk_događaj { get; set; }
-        public int fk_natjecatelj { get; set; }
+        public Nullable<short> broj_karata { get; set; }
     
         public virtual Događaj Događaj { get; set; }
-        public virtual Natjecatelj Natjecatelj { get; set; }
+        public virtual Korisnik Korisnik { get; set; }
     }
 }

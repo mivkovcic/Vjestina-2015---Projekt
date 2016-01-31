@@ -4,9 +4,23 @@
     ViewBag.Title = "Event";
 }
 
-<h2>@Model.Događaj.Sport.naziv</h2>
-<h2>@Model.Događaj.Mjesto.naziv</h2>
-<h2>@Model.Događaj.Mjesto.kapacitet</h2>
-<h2>@Model.Događaj.posjetitelji</h2>
-<h2>@Model.Događaj.datum</h2>
-<h2>@Model.Događaj.cijena</h2>
+<div class="container">
+    <div class="row" style="margin-top: 50px; margin-bottom: 50px">
+        <div class="col-sm-6">
+            <img class="img-rounded img-responsive" src="@Model.Događaj.Mjesto.slika" />
+        </div>
+        <div class="col-sm-6" style="padding-left:80px">            
+            <h3>@Model.Događaj.Mjesto.naziv</h3>
+            <h5>@Model.Događaj.Mjesto.adresa</h5>
+            <h5>@Model.Događaj.Mjesto.Grad.naziv, @Model.Događaj.Mjesto.Grad.pbr</h5>
+            <h5>Kapacitet: @Model.Događaj.Mjesto.kapacitet</h5>
+            <br /><br />
+            <h2><strong>@Model.Događaj.DogađajNatjecatelj.First().Natjecatelj.naziv : @Model.Događaj.DogađajNatjecatelj.Last().Natjecatelj.naziv</strong></h2>
+            <h4>Datum: @Model.Događaj.datum</h4>
+            <h4>Cijena: @Model.Događaj.cijena kn</h4>
+            <h4>Broj posjetitelja: @Model.Događaj.broj_posjetitelja</h4>
+        </div>
+    </div>
+</div>
+
+        

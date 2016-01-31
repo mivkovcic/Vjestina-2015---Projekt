@@ -4,54 +4,66 @@
 }
 
 @{ var item = Model.Događaji;}
-<div class="row">
-    @for (int i = 0; i < 3; i++)
-    {
-        <a href="@Url.Action("Event", "Home", new { pk_događaj = item[i].pk_događaj })">
-            <div class="col-sm-4">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">@item[i].Sport.naziv</div>
-                    <!--<div class="panel-body" style="background:linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url('aModel.ElementAt(i).Image'); background-size:cover; "> -->
-                    <p style="color: #428bca; font-weight:bold">
-                        @foreach (var dn in item[i].DogađajNatjecatelj)
-                        {
-                            @dn.Natjecatelj.naziv                            
-                        }
-                    </p>
-
-                    <p style="color: #428bca">@item[i].Mjesto.Grad.naziv, @item[i].Mjesto.adresa</p>
-                    <p style="color: #428bca">@item[i].datum</p>
+<div class="container">
+    <div class="row" style="margin-top: 50px">
+        @for (int i = 0; i < 3; i++)
+        {
+            <a href="@Url.Action("Event", "Home", new { pk_događaj = item[i].pk_događaj })">
+                <div class="col-sm-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            @{ int j = 0; }
+                            @foreach (var dn in item[i].DogađajNatjecatelj)
+                            {
+                                @dn.Natjecatelj.naziv
+                                if (j++ == 0)
+                                {
+                                    <span> : </span>
+                                }
+                            }
+                        </div>
+                        <div class="panel-body" style="background:linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url('..@item[i].Sport.slika'); background-size:cover; ">
+                            <p style="color: whitesmoke">@item[i].Mjesto.Grad.naziv</p>
+                            <p style="color: whitesmoke">@item[i].Mjesto.adresa</p>
+                            <p style="color: whitesmoke">@item[i].datum</p>
+                        </div>
+                    </div>
+                    <!--<div class="panel-footer"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Rezerviraj</a></div>-->
                 </div>
-                <!--<div class="panel-footer"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Rezerviraj</a></div>-->
-            </div>
-        </a>
-    }
-</div><br>
-  
-<div class="row">
-    @for (int i = 3; i < 6; i++)
-    {
-        <a href="@Url.Action("Event", "Home", new { pk_događaj = item[i].pk_događaj })">
-            <div class="col-sm-4">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">@item[i].Sport.naziv</div>
-                    <!--<div class="panel-body" style="background:linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url('aModel.ElementAt(i).Image'); background-size:cover; "> -->
-                    <p style="color: #428bca; font-weight:bold">
-                        @foreach (var dn in item[i].DogađajNatjecatelj)
-                        {
-                            @dn.Natjecatelj.naziv
-                        }
-                    </p>
+            </a>
+        }
+    </div><br>
 
-                    <p style="color: #428bca">@item[i].Mjesto.Grad.naziv, @item[i].Mjesto.adresa</p>
-                    <p style="color: #428bca">@item[i].datum</p>
+    <div class="row">
+        @for (int i = 3; i < 6; i++)
+        {
+            <a href="@Url.Action("Event", "Home", new { pk_događaj = item[i].pk_događaj })">
+                <div class="col-sm-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            @{ int j = 0; }
+                            @foreach (var dn in item[i].DogađajNatjecatelj)
+                            {
+                                @dn.Natjecatelj.naziv
+                                if (j++ == 0)
+                                {
+                                    <span> : </span>
+                                }
+                            }
+                        </div>
+                        <div class="panel-body" style="background:linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url('..@item[i].Sport.slika'); background-size:cover; ">
+                            <p style="color: whitesmoke">@item[i].Mjesto.Grad.naziv</p>
+                            <p style="color: whitesmoke">@item[i].Mjesto.adresa</p>
+                            <p style="color: whitesmoke">@item[i].datum</p>
+                        </div>
+                    </div>
+                    <!--<div class="panel-footer"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Rezerviraj</a></div>-->
                 </div>
-                <!--<div class="panel-footer"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Rezerviraj</a></div>-->
-            </div>
-        </a>
-    }
+            </a>
+        }
+    </div>
 </div><br>
 
- }
+
 
 

@@ -29,9 +29,9 @@
 
         /* Set gray background color and 100% height */
         .sidenav {
-            background-color: #f1f1f1;
+            /*background-color: #f1f1f1;*/
             height: 100%;
-            padding-left: 25px;
+            padding-left: 30px;
         }
 
         .row.content {height: auto;} 
@@ -42,7 +42,7 @@
     <div class="jumbotron">
         <div class="container text-center">
             <h1>Sports Events</h1>
-            <p>Many different sporting events all over the Croatia</p>
+            <p>Raznovrsni sportski događaji diljem Hrvatske</p>
         </div>
     </div>
 
@@ -61,10 +61,8 @@
                     <li>@Html.ActionLink("Naslovna", "Index", "Home")</li>
                     <li>@Html.ActionLink("Događaji", "Events", "Home")</li>
                     <li>@Html.ActionLink("Sportovi", "Sports", new { pk_sport = 1 } )</li>
-                    <li>@Html.ActionLink("Lokacije", "Locations", new { pk_grad = 1 })</li>
-           
-        
-                    <li>@Html.ActionLink("Filter", "Filter", "Home")</li>
+                    <li>@Html.ActionLink("Lokacije", "Locations", new { pk_grad = 1 })</li>         
+                    <!--<li>Html.ActionLink("Filter", "Filter", "Home")</li>-->
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -86,7 +84,7 @@
                 <label for="pwd">Password:</label>
                 <input type="password" class="form-control" id="pwd" placeholder="Enter password">
             </div>
-            <button type="button" class="btn btn-danger">Sign Up</button>
+            <button type="button" class="btn btn-danger">Sign in</button>
         </form>
     </footer>
     @RenderSection("scripts", required: false)

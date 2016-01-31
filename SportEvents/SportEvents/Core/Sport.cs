@@ -7,29 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SportEvents.Core.models
+namespace SportEvents.Core
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Mjesto
+    using System.ComponentModel.DataAnnotations;
+
+    public partial class Sport
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Mjesto()
+        public Sport()
         {
             this.Događaj = new HashSet<Događaj>();
         }
-    
-        public int pk_mjesto { get; set; }
-        public int fk_grad { get; set; }
-        public Nullable<int> fk_tip { get; set; }
+
+        [Key]
+        public int pk_sport { get; set; }
         public string naziv { get; set; }
-        public Nullable<short> kapacitet { get; set; }
-        public string adresa { get; set; }
+        public string slika { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Događaj> Događaj { get; set; }
-        public virtual Grad Grad { get; set; }
-        public virtual Tip Tip { get; set; }
     }
 }

@@ -6,7 +6,7 @@
 
 <div class="row content">
     <div class="col-sm-3 sidenav">
-        <h4 style="padding-top: 15px">Popis gradova</h4>
+        <h4 style="padding-top: 20px">Popis gradova</h4>
         <ul class="nav nav-pills nav-stacked">
             @foreach (var item in Model.Gradovi)
             {
@@ -17,46 +17,47 @@
         </ul><br>
     </div>
 
-    <div class="col-sm-9">
-        <br><br>       
+    <div class="col-sm-9">               
         @foreach (var item in Model.MjestaGrad)
         {
-            <h4>@item.naziv</h4>
+            <h3 style="text-align:center; padding-bottom:10px; padding-top:20px">@item.naziv</h3>
             foreach (var d in item.Događaj)
             {
-                <div class="col-sm-12">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            @{ int i = 0; }
-                            @foreach (var dn in d.DogađajNatjecatelj)
-                            {
-                                @dn.Natjecatelj.naziv
-                                if (i++ == 0)
+                <a href="@Url.Action("Event", "Home", new { pk_događaj = d.pk_događaj })" style="text-decoration: none">
+                    <div class="col-sm-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                @{ int i = 0; }
+                                @foreach (var dn in d.DogađajNatjecatelj)
                                 {
-                                    <span> : </span>
+                                    @dn.Natjecatelj.naziv
+                                    if (i++ == 0)
+                                    {
+                                        <span> : </span>
+                                    }
                                 }
-                            }
-                        </div>
-                        <div class="panel-body">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <!--<th width="10%"><img src="  " class="img-rounded" width="90" height="70"></th>-->
+                            </div>
+                            <div class="panel-body" style="background-color: lightcyan; padding:0px">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th width="10%" style="padding-left:40px"><img src="..@d.Sport.slika" class="img-rounded" width="100" height="70"></th>
 
-                                        <th width="25%" style="padding-bottom:3%; text-align:center">
-                                            @d.Mjesto.adresa
-                                        </th>
-                                        <th width="25%" style="padding-bottom:3%; text-align:center">
-                                            @d.datum
-                                        </th>
-                                        <th width="20%" style="padding-bottom:3%; text-align:center">Broj posjetitelja: </th>
-                                        <th width="20%" style="padding-bottom:3%; text-align:center"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Rezerviraj</a></th>
-                                    </tr>
-                                </thead>
-                            </table>
+                                            <th width="25%" style="padding-bottom:3%; text-align:center">
+                                                @d.Mjesto.adresa
+                                            </th>
+                                            <th width="25%" style="padding-bottom:3%; text-align:center">
+                                                @d.datum
+                                            </th>
+                                            <th width="20%" style="padding-bottom:3%; text-align:center">Broj posjetitelja: </th>
+                                            <!--<th width="20%" style="padding-bottom:3%; text-align:center"><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Rezerviraj</a></th>-->
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             }
         }
     </div>

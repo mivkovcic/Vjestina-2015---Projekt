@@ -172,46 +172,52 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Core\models\Događaj.cs">
-      <DependentUpon>SportEventsDB.tt</DependentUpon>
+    <Compile Include="Core\Događaj.cs">
+      <DependentUpon>SportEventDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Core\models\DogađajNatjecatelj.cs">
-      <DependentUpon>SportEventsDB.tt</DependentUpon>
+    <Compile Include="Core\DogađajNatjecatelj.cs">
+      <DependentUpon>SportEventDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Core\models\Grad.cs">
-      <DependentUpon>SportEventsDB.tt</DependentUpon>
+    <Compile Include="Core\Grad.cs">
+      <DependentUpon>SportEventDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Core\models\Mjesto.cs">
-      <DependentUpon>SportEventsDB.tt</DependentUpon>
+    <Compile Include="Core\Korisnik.cs">
+      <DependentUpon>SportEventDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Core\models\Natjecatelj.cs">
-      <DependentUpon>SportEventsDB.tt</DependentUpon>
+    <Compile Include="Core\Mjesto.cs">
+      <DependentUpon>SportEventDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Core\models\Sport.cs">
-      <DependentUpon>SportEventsDB.tt</DependentUpon>
+    <Compile Include="Core\Natjecatelj.cs">
+      <DependentUpon>SportEventDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Core\models\SportEventsDB.Context.cs">
+    <Compile Include="Core\Rezervacija.cs">
+      <DependentUpon>SportEventDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Sport.cs">
+      <DependentUpon>SportEventDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Core\SportEventDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SportEventsDB.Context.tt</DependentUpon>
+      <DependentUpon>SportEventDB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Core\models\SportEventsDB.cs">
+    <Compile Include="Core\SportEventDB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SportEventsDB.tt</DependentUpon>
+      <DependentUpon>SportEventDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Core\models\SportEventsDB.Designer.cs">
+    <Compile Include="Core\SportEventDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SportEventsDB.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Core\models\sysdiagram.cs">
-      <DependentUpon>SportEventsDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Core\models\Tip.cs">
-      <DependentUpon>SportEventsDB.tt</DependentUpon>
+      <DependentUpon>SportEventDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Core\SportEventsService.cs" />
+    <Compile Include="Core\sysdiagrams.cs">
+      <DependentUpon>SportEventDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Core\Tip.cs">
+      <DependentUpon>SportEventDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -230,28 +236,36 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Core\models\SportEventsDB.Context.tt">
+    <Content Include="Core\SportEventDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SportEventsDB.edmx</DependentUpon>
-      <LastGenOutput>SportEventsDB.Context.cs</LastGenOutput>
+      <DependentUpon>SportEventDB.edmx</DependentUpon>
+      <LastGenOutput>SportEventDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Core\models\SportEventsDB.tt">
+    <Content Include="Core\SportEventDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SportEventsDB.edmx</DependentUpon>
-      <LastGenOutput>SportEventsDB.cs</LastGenOutput>
+      <DependentUpon>SportEventDB.edmx</DependentUpon>
+      <LastGenOutput>SportEventDB.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\boks.jpg" />
+    <Content Include="Images\košarka.jpg" />
+    <Content Include="Images\MMA.jpg" />
+    <Content Include="Images\nogomet.jpg" />
+    <Content Include="Images\odbojka.jpg" />
+    <Content Include="Images\rukomet.jpg" />
+    <Content Include="Images\tenis.jpg" />
+    <Content Include="Images\vaterpolo.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Core\models\SportEventsDB.edmx">
+    <EntityDeploy Include="Core\SportEventDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SportEventsDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>SportEventDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Core\models\SportEventsDB.edmx.diagram">
-      <DependentUpon>SportEventsDB.edmx</DependentUpon>
+    <Content Include="Core\SportEventDB.edmx.diagram">
+      <DependentUpon>SportEventDB.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

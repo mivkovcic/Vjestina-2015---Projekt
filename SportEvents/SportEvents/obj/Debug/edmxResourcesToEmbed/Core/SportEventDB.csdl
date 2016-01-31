@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SportEventDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Događaj">
+    <Key>
+      <PropertyRef Name="pk_događaj" />
+    </Key>
+    <Property Name="pk_događaj" Type="Int32" Nullable="false" />
+    <Property Name="fk_sport" Type="Int32" Nullable="false" />
+    <Property Name="fk_mjesto" Type="Int32" Nullable="false" />
+    <Property Name="datum" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="cijena" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="broj_posjetitelja" Type="Int32" />
+    <NavigationProperty Name="Mjesto" Relationship="Self.FK_Događaj_Mjesto" FromRole="Događaj" ToRole="Mjesto" />
+    <NavigationProperty Name="Sport" Relationship="Self.FK_Događaj_Sport" FromRole="Događaj" ToRole="Sport" />
+    <NavigationProperty Name="DogađajNatjecatelj" Relationship="Self.FK_DogađajNatjecatelj_Događaj" FromRole="Događaj" ToRole="DogađajNatjecatelj" />
+    <NavigationProperty Name="Rezervacija" Relationship="Self.FK_Rezervacija_Događaj" FromRole="Događaj" ToRole="Rezervacija" />
+  </EntityType>
+  <EntityType Name="DogađajNatjecatelj">
+    <Key>
+      <PropertyRef Name="pk_događaj_natjecatelj" />
+    </Key>
+    <Property Name="pk_događaj_natjecatelj" Type="Int32" Nullable="false" />
+    <Property Name="fk_događaj" Type="Int32" Nullable="false" />
+    <Property Name="fk_natjecatelj" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Događaj" Relationship="Self.FK_DogađajNatjecatelj_Događaj" FromRole="DogađajNatjecatelj" ToRole="Događaj" />
+    <NavigationProperty Name="Natjecatelj" Relationship="Self.FK_DogađajNatjecatelj_Natjecatelj" FromRole="DogađajNatjecatelj" ToRole="Natjecatelj" />
+  </EntityType>
+  <EntityType Name="Grad">
+    <Key>
+      <PropertyRef Name="pk_grad" />
+    </Key>
+    <Property Name="pk_grad" Type="Int32" Nullable="false" />
+    <Property Name="naziv" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="pbr" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Mjesto" Relationship="Self.FK_Mjesto_Grad" FromRole="Grad" ToRole="Mjesto" />
+  </EntityType>
+  <EntityType Name="Korisnik">
+    <Key>
+      <PropertyRef Name="pk_korisnik" />
+    </Key>
+    <Property Name="pk_korisnik" Type="Int32" Nullable="false" />
+    <Property Name="korisničko_ime" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="lozinka" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="ime" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+    <Property Name="prezime" Type="String" MaxLength="25" FixedLength="true" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Rezervacija" Relationship="Self.FK_Rezervacija_Korisnik" FromRole="Korisnik" ToRole="Rezervacija" />
+  </EntityType>
+  <EntityType Name="Mjesto">
+    <Key>
+      <PropertyRef Name="pk_mjesto" />
+    </Key>
+    <Property Name="pk_mjesto" Type="Int32" Nullable="false" />
+    <Property Name="fk_grad" Type="Int32" Nullable="false" />
+    <Property Name="fk_tip" Type="Int32" Nullable="false" />
+    <Property Name="naziv" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="kapacitet" Type="Int32" />
+    <Property Name="adresa" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Događaj" Relationship="Self.FK_Događaj_Mjesto" FromRole="Mjesto" ToRole="Događaj" />
+    <NavigationProperty Name="Grad" Relationship="Self.FK_Mjesto_Grad" FromRole="Mjesto" ToRole="Grad" />
+    <NavigationProperty Name="Tip" Relationship="Self.FK_Mjesto_Tip" FromRole="Mjesto" ToRole="Tip" />
+    <Property Name="slika" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Natjecatelj">
+    <Key>
+      <PropertyRef Name="pk_natjecatelj" />
+    </Key>
+    <Property Name="pk_natjecatelj" Type="Int32" Nullable="false" />
+    <Property Name="naziv" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="DogađajNatjecatelj" Relationship="Self.FK_DogađajNatjecatelj_Natjecatelj" FromRole="Natjecatelj" ToRole="DogađajNatjecatelj" />
+  </EntityType>
+  <EntityType Name="Rezervacija">
+    <Key>
+      <PropertyRef Name="pk_rezervacija" />
+    </Key>
+    <Property Name="pk_rezervacija" Type="Int32" Nullable="false" />
+    <Property Name="fk_korisnik" Type="Int32" Nullable="false" />
+    <Property Name="fk_događaj" Type="Int32" Nullable="false" />
+    <Property Name="broj_karata" Type="Int16" />
+    <NavigationProperty Name="Događaj" Relationship="Self.FK_Rezervacija_Događaj" FromRole="Rezervacija" ToRole="Događaj" />
+    <NavigationProperty Name="Korisnik" Relationship="Self.FK_Rezervacija_Korisnik" FromRole="Rezervacija" ToRole="Korisnik" />
+  </EntityType>
+  <EntityType Name="Sport">
+    <Key>
+      <PropertyRef Name="pk_sport" />
+    </Key>
+    <Property Name="pk_sport" Type="Int32" Nullable="false" />
+    <Property Name="naziv" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="slika" Type="String" MaxLength="150" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Događaj" Relationship="Self.FK_Događaj_Sport" FromRole="Sport" ToRole="Događaj" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Tip">
+    <Key>
+      <PropertyRef Name="pk_tip" />
+    </Key>
+    <Property Name="pk_tip" Type="Int32" Nullable="false" />
+    <Property Name="naziv" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Mjesto" Relationship="Self.FK_Mjesto_Tip" FromRole="Tip" ToRole="Mjesto" />
+  </EntityType>
+  <Association Name="FK_Događaj_Mjesto">
+    <End Role="Mjesto" Type="Self.Mjesto" Multiplicity="1" />
+    <End Role="Događaj" Type="Self.Događaj" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mjesto">
+        <PropertyRef Name="pk_mjesto" />
+      </Principal>
+      <Dependent Role="Događaj">
+        <PropertyRef Name="fk_mjesto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Događaj_Sport">
+    <End Role="Sport" Type="Self.Sport" Multiplicity="1" />
+    <End Role="Događaj" Type="Self.Događaj" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sport">
+        <PropertyRef Name="pk_sport" />
+      </Principal>
+      <Dependent Role="Događaj">
+        <PropertyRef Name="fk_sport" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DogađajNatjecatelj_Događaj">
+    <End Role="Događaj" Type="Self.Događaj" Multiplicity="1" />
+    <End Role="DogađajNatjecatelj" Type="Self.DogađajNatjecatelj" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Događaj">
+        <PropertyRef Name="pk_događaj" />
+      </Principal>
+      <Dependent Role="DogađajNatjecatelj">
+        <PropertyRef Name="fk_događaj" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rezervacija_Događaj">
+    <End Role="Događaj" Type="Self.Događaj" Multiplicity="1" />
+    <End Role="Rezervacija" Type="Self.Rezervacija" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Događaj">
+        <PropertyRef Name="pk_događaj" />
+      </Principal>
+      <Dependent Role="Rezervacija">
+        <PropertyRef Name="fk_događaj" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DogađajNatjecatelj_Natjecatelj">
+    <End Role="Natjecatelj" Type="Self.Natjecatelj" Multiplicity="1" />
+    <End Role="DogađajNatjecatelj" Type="Self.DogađajNatjecatelj" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Natjecatelj">
+        <PropertyRef Name="pk_natjecatelj" />
+      </Principal>
+      <Dependent Role="DogađajNatjecatelj">
+        <PropertyRef Name="fk_natjecatelj" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Mjesto_Grad">
+    <End Role="Grad" Type="Self.Grad" Multiplicity="1" />
+    <End Role="Mjesto" Type="Self.Mjesto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Grad">
+        <PropertyRef Name="pk_grad" />
+      </Principal>
+      <Dependent Role="Mjesto">
+        <PropertyRef Name="fk_grad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rezervacija_Korisnik">
+    <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+    <End Role="Rezervacija" Type="Self.Rezervacija" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Korisnik">
+        <PropertyRef Name="pk_korisnik" />
+      </Principal>
+      <Dependent Role="Rezervacija">
+        <PropertyRef Name="fk_korisnik" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Mjesto_Tip">
+    <End Role="Tip" Type="Self.Tip" Multiplicity="1" />
+    <End Role="Mjesto" Type="Self.Mjesto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tip">
+        <PropertyRef Name="pk_tip" />
+      </Principal>
+      <Dependent Role="Mjesto">
+        <PropertyRef Name="fk_tip" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SportEventDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Događaj" EntityType="Self.Događaj" />
+    <EntitySet Name="DogađajNatjecatelj" EntityType="Self.DogađajNatjecatelj" />
+    <EntitySet Name="Grad" EntityType="Self.Grad" />
+    <EntitySet Name="Korisnik" EntityType="Self.Korisnik" />
+    <EntitySet Name="Mjesto" EntityType="Self.Mjesto" />
+    <EntitySet Name="Natjecatelj" EntityType="Self.Natjecatelj" />
+    <EntitySet Name="Rezervacija" EntityType="Self.Rezervacija" />
+    <EntitySet Name="Sport" EntityType="Self.Sport" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Tip" EntityType="Self.Tip" />
+    <AssociationSet Name="FK_Događaj_Mjesto" Association="Self.FK_Događaj_Mjesto">
+      <End Role="Mjesto" EntitySet="Mjesto" />
+      <End Role="Događaj" EntitySet="Događaj" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Događaj_Sport" Association="Self.FK_Događaj_Sport">
+      <End Role="Sport" EntitySet="Sport" />
+      <End Role="Događaj" EntitySet="Događaj" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DogađajNatjecatelj_Događaj" Association="Self.FK_DogađajNatjecatelj_Događaj">
+      <End Role="Događaj" EntitySet="Događaj" />
+      <End Role="DogađajNatjecatelj" EntitySet="DogađajNatjecatelj" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rezervacija_Događaj" Association="Self.FK_Rezervacija_Događaj">
+      <End Role="Događaj" EntitySet="Događaj" />
+      <End Role="Rezervacija" EntitySet="Rezervacija" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DogađajNatjecatelj_Natjecatelj" Association="Self.FK_DogađajNatjecatelj_Natjecatelj">
+      <End Role="Natjecatelj" EntitySet="Natjecatelj" />
+      <End Role="DogađajNatjecatelj" EntitySet="DogađajNatjecatelj" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Mjesto_Grad" Association="Self.FK_Mjesto_Grad">
+      <End Role="Grad" EntitySet="Grad" />
+      <End Role="Mjesto" EntitySet="Mjesto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rezervacija_Korisnik" Association="Self.FK_Rezervacija_Korisnik">
+      <End Role="Korisnik" EntitySet="Korisnik" />
+      <End Role="Rezervacija" EntitySet="Rezervacija" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Mjesto_Tip" Association="Self.FK_Mjesto_Tip">
+      <End Role="Tip" EntitySet="Tip" />
+      <End Role="Mjesto" EntitySet="Mjesto" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

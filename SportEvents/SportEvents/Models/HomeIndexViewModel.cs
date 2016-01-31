@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using SportEvents.Core.models;
+using SportEvents.Core;
 
 namespace SportEvents.Models
 {
